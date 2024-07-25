@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .completed {
+            /* Estilos para itens completados */
+            
+            color: #999; /* Cor de texto cinza para itens completados */
+        }
+
+        .remover-botao {
+            background-color: transparent;
+            color: #f44336;
+            border: none;
+            padding: 3px 8px;
+            font-size: 12px;
+            cursor: pointer;
+            margin-left: 5px;
+        }
+
+        .remover-botao:hover {
+            background-color: rgba(244, 67, 54, 0.1);
+        }
+
+        .adicionar-botao {
+            padding: 8px 16px;
+            font-size: 14px;
+            cursor: pointer;
+            border: none;
+            border-radius: 20px;
+            background-color: #0c57ac
+            color: white;
+            transition: background-color 0.3s;
+        }
+
+        .adicionar-botao:hover {
+            background-color: #0c57ac;
+        }
+
+        .titulo {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+    </style>
+    <script>
+        let indiceDaLista = 0;
+
+        function adicionarItem() {
+            const inputDoUsuario = document.getElementById('texto-do-usuario');
+            const textoDigitado = inputDoUsuario.value;
+
+            if (textoDigitado.trim() === '') {
+                alert('Por favor, insira um texto para adicionar à lista.');
+                return;
+            }
+
+            inputDoUsuario.value = '';
+
+            const lista = document.getElementById('lista');
+
+            const novoItem = document.createElement('li');
+            novoItem.id = `item-${indiceDaLista}`;
+
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.name = `item-${indiceDaLista}`;
+            checkbox.id = `checkbox-${indiceDaLista}`;
+            checkbox.addEventListener('change', function () {
+                if (checkbox.checked) {
+                    novoItem.classList.add('completed');
+                } else {
+                    novoItem.classList.remove('completed');
+                }
+            });
+
+            novoItem.appendChild(checkbox);
+            novoItem.appendChild(document.createTextNode(textoDigitado));
+
+            const botaoRemover = document.createElement('button');
+            botaoRemover.textContent = 'Remover';
+            botaoRemover.classList.add('remover-botao');
+            botaoRemover.addEventListener('click', function () {
+                if (checkbox.checked) {
+                    removerItem(novoItem);
+                } else {
+                    alert('Por favor, marque o checkbox para poder remover o item.');
+                }
+            });
+            novoItem.appendChild(botaoRemover);
+
+            lista.appendChild(novoItem);
+
+            indiceDaLista++;
+        }
+
+        function removerItem(item) {
+            const lista = document.getElementById('lista');
+            lista.removeChild(item);
+        }
+
+        document.getElementById('texto-do-usuario').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                adicionarItem();
+                e.preventDefault();
+            }
+        });
+    </script>
+</head>
+<body>
+    <h1 class="titulo">Itens da Lista</h1>
+    <ul id="lista"></ul>
+    <button onclick="adicionarItem()" class="adicionar-botao">Adicionar Item</button>
+    <input type="text" id="texto-do-usuario">
+</body>
+</html>
