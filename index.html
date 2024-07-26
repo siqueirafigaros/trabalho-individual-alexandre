@@ -7,7 +7,6 @@
     <style>
         .completed {
             /* Estilos para itens completados */
-            
             color: #999; /* Cor de texto cinza para itens completados */
         }
 
@@ -31,13 +30,13 @@
             cursor: pointer;
             border: none;
             border-radius: 20px;
-            background-color: #0c57ac
+            background-color: #0c57ac;
             color: white;
             transition: background-color 0.3s;
         }
 
         .adicionar-botao:hover {
-            background-color: #0c57ac;
+            background-color: #0a478d;
         }
 
         .titulo {
@@ -101,12 +100,14 @@
             lista.removeChild(item);
         }
 
-        document.getElementById('texto-do-usuario').addEventListener('keypress', function (e) {
-            if (e.key === 'Enter') {
-                adicionarItem();
-                e.preventDefault();
-            }
-        });
+        window.onload = function () {
+            document.getElementById('texto-do-usuario').addEventListener('keypress', function (e) {
+                if (e.key === 'Enter') {
+                    adicionarItem();
+                    e.preventDefault();
+                }
+            });
+        };
     </script>
 </head>
 <body>
